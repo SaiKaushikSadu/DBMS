@@ -1,0 +1,66 @@
+//FUNCTION
+
+CREATE OR REPLACE FUNCTION cal_age (bdate IN DATE)
+ RETURN NUMBER 
+ IS 
+ age NUMBER;
+BEGIN 
+ age :=TRUNC(MONTHS_BETWEEN(SYSDATE,bdate)/12);
+ RETURN age;
+END;
+/
+DECLARE 
+emp_age NUMBER;
+BEGIN 
+emp_age :=cal_age(TO_DATE('01-MAY-2003','DD-MON-YY'));
+DBMS_OUTPUT.PUT_LINE('Employee Age: '||emp_age);
+END;
+/
+
+
+CREATE OR REPLACE FUNCTION count_sal (sal IN NUMBER)
+RETURN NUMBER
+IS
+ans NUMBER;
+BEGIN
+SELECT COUNT(*) INTO ans
+FROM Employee
+WHERE salary>sal;
+RETURN ans;
+END;
+/
+DECLARE 
+sal_count NUMBER;
+BEGIN
+sal_count :=count_sal(30000);
+DBMS_OUTPUT.PUT_LINE('Count is '||sal_count);
+END;
+/
+
+
+//PROCEDURE
+CREATE OR REPLACE PROCEDURE update_emp (id IN NUMBER ,sal IN NUMBER)
+IS 
+BEGIN
+UPDATE Employee 
+SET salary=sal 
+WHERE ssn=id;
+END;
+/
+BEGIN
+update_emp (333445555,100000);
+COMMIT;
+END;
+/
+
+
+CREATE OR REPLACE PROCEDURE in_test (r IN NUMBER)
+IS
+BEGIN
+INSERT INTO Testing VALUES(r,'xxx');
+END;
+/
+BEGIN
+in_test(5);
+END;
+DROP PROCEDURE in_test;

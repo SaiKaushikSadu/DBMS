@@ -1,0 +1,51 @@
+CREATE TABLE Employee3(
+    empno3 VARCHAR2(10) PRIMARY KEY,
+    emp_name3 VARCHAR2(20) NOT NULL,
+    dept3 VARCHAR2(20) NOT NULL,
+    salary3 NUMBER(10,2) CHECK (salary3 > 0),
+    doj3 DATE DEFAULT SYSDATE,
+    branch3 VARCHAR2(20) CHECK (branch3 IN ('Banglore','Mumbai','Mysore'))
+);
+
+desc Employee3;
+
+INSERT INTO Employee3(empno3,emp_name3,dept3,salary3 ,branch3)
+VALUES ('E101','Amit','Production',45000,'Banglore');
+
+INSERT INTO Employee3(empno3,emp_name3,dept3,salary3 ,branch3)
+VALUES ('E102','Amit','HR',70000,'Banglore');
+
+INSERT INTO Employee3(empno3,emp_name3,dept3,salary3 ,branch3)
+VALUES ('E103','Sunita','Management',120000,'Mysore');
+
+INSERT INTO Employee3(empno3,emp_name3,dept3,salary3 ,branch3)
+VALUES ('E105','Sunita','IT',67000,'Mysore');
+
+INSERT INTO Employee3(empno3,emp_name3,dept3,salary3 ,branch3)
+VALUES ('E106','Mahesh','Civil',145000,'Mumbai');
+
+select * from employee3;
+
+SELECT emp_name3 , salary3 FROM Employee3;
+
+SELECT COUNT(*) FROM Employee3;
+
+SELECT COUNT(DISTINCT emp_name3) FROM Employee3;
+
+SELECT SUM(salary3), COUNT(emp_name3),emp_name3
+FROM Employee3
+GROUP BY emp_name3;
+
+SELECT SUM(salary3), COUNT(emp_name3),emp_name3
+FROM Employee3
+GROUP BY emp_name3
+HAVING SUM(salary3)>120000;
+
+SELECT emp_name3
+FROM Employee3
+GROUP BY emp_name3
+ORDER BY emp_name3 asc;
+
+SELECT * 
+FROM Employee3
+WHERE emp_name3='Amit' AND salary3>50000;

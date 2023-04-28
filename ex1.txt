@@ -1,0 +1,70 @@
+CREATE TABLE Employee (
+    fname VARCHAR2 (40) NOT NULL,
+    mname CHAR (2),
+    lname VARCHAR2 (40) NOT NULL,
+    ssn NUMBER (20) PRIMARY KEY,
+    bdate DATE,
+    address VARCHAR2 (40),
+    sex CHAR (1),
+    salary NUMBER (10,2) CHECK (salary>0),
+    superssn NUMBER(20),
+    dno NUMBER(20)
+);
+
+CREATE TABLE Department(
+    dname VARCHAR(20) NOT NULL,
+    dno NUMBER(20) PRIMARY KEY,
+    mgrssn NUMBER(20) NOT NULL,
+    mgrdate DATE
+);
+
+desc Department;
+desc Employee;
+
+INSERT INTO Department(dname,dno,mgrssn,mgrdate)
+VALUES('Reasearch',5,333445555,TO_DATE('22-MAY-1986','DD-MON-YYYY'));
+
+INSERT INTO Department(dname,dno,mgrssn,mgrdate)
+VALUES('Administration',4,987654321,TO_DATE('01-JANUARY-1986','DD-MON-YYYY'));
+
+INSERT INTO Department(dname,dno,mgrssn,mgrdate)
+VALUES('Headquarters',1,888665555,TO_DATE('19-JUNE-1981','DD-MON-YYYY'));
+
+SELECT * FROM Department;
+
+INSERT INTO Employee(fname,mname,lname,ssn,bdate,address,sex,salary,superssn,dno)
+VALUES('John','B','Smith',123456789,TO_DATE('09-JANUARY-1981','DD-MON-YYYY'),'Home','M','30000','333445555','5');
+
+INSERT INTO Employee(fname,mname,lname,ssn,bdate,address,sex,salary,superssn,dno)
+VALUES('Frank','T','Wong',333445555,TO_DATE('12-JUNE-1981','DD-MON-YYYY'),'Home1','M','40000','888445555','5');
+
+INSERT INTO Employee(fname,mname,lname,ssn,bdate,address,sex,salary,superssn,dno)
+VALUES('Alice','J','Jania',999887777,TO_DATE('19-JULY-1966','DD-MON-YYYY'),'Home2','F','25000','987654321','4');
+
+INSERT INTO Employee(fname,mname,lname,ssn,bdate,address,sex,salary,superssn,dno)
+VALUES('Jenny','S','Walace',987654321,TO_DATE('29-OCTOBER-1981','DD-MON-YYYY'),'Home3','M','43000','888665555','4');
+
+INSERT INTO Employee(fname,mname,lname,ssn,bdate,address,sex,salary,superssn,dno)
+VALUES('Ram','K','Narayan',666884444,TO_DATE('15-JANUARY-1981','DD-MON-YYYY'),'Home4','M','38000','333445555','5');
+
+INSERT INTO Employee(fname,mname,lname,ssn,bdate,address,sex,salary,superssn,dno)
+VALUES('Joica','A','English',4523453453,TO_DATE('17-NOVEMBER-1981','DD-MON-YYYY'),'Home5','F','25000','333445555','5');
+
+INSERT INTO Employee(fname,mname,lname,ssn,bdate,address,sex,salary,superssn,dno)
+VALUES('Ahmad','V','Jabbar',987987987,TO_DATE('10-JANUARY-1981','DD-MON-YYYY'),'Home6','M','30000','987654321','4');
+
+INSERT INTO Employee(fname,mname,lname,ssn,bdate,address,sex,salary,superssn,dno)
+VALUES('James','E','Bong',868685555,TO_DATE('09-MARCH-1981','DD-MON-YYYY'),'Home7','M','55000',NULL,'1');
+
+SELECT * FROM Employee;
+
+ALTER TABLE Employee
+ADD FOREIGN KEY(dno) REFERENCES Department(dnum);
+
+ALTER TABLE Employee
+ADD FOREIGN KEY(superssn) REFERENCES Employee(ssn);
+
+ALTER TABLE Department
+ADD FOREIGN KEY (mgrssn) REFERENCES Employee(ssn);
+
+
